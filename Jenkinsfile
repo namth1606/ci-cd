@@ -4,10 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-            git url: 'https://github.com/namth1606/ci-cd.git'
-                    withMaven {
-                      sh 'mvn -B -DskipTests clean package'
-                    }
+                sh 'mvn -B -DskipTests clean package'
             }
         }
 
