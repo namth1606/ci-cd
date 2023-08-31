@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-            gradle 'maven_tool'
+            maven 'maven_tool'
     }
     stages {
         stage('Build running') {
