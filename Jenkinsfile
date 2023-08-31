@@ -1,10 +1,6 @@
 pipeline {
-    agent {
-            docker {
-                image 'maven:3.6.3-openjdk-17'
-                args '-v /root/.m2:/root/.m2'
-            }
-    }
+    agent any
+
     stages {
         stage('Build') {
             steps {
