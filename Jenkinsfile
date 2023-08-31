@@ -1,16 +1,18 @@
 pipeline {
-    agent any
-    tools {
-            maven 'maven_tool'
+    agent {
+            docker {
+                image 'maven:3.6.3-openjdk-17'
+                args '-v /root/.m2:/root/.m2'
+            }
     }
     stages {
-        stage('Build running') {
+        stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
 
-        stage('Test running') {
+        stage('Test') {
             steps {
                 sh 'mvn test'
             }
