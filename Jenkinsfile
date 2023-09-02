@@ -22,7 +22,7 @@ pipeline {
         stage ('Packaging/Pushing image') {
             steps {
 
-                scripts{
+                script {
                     readProp = readProperties file: 'build.properties'
                 }
 
@@ -36,7 +36,7 @@ pipeline {
         stage ('Recreating application') {
             steps {
 
-                scripts{
+                script {
                     readProp = readProperties file: 'build.properties'
                 }
 
