@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-          APP_VERSION = readMavenPom().getProperties().getProperty('version')
+          APP_VERSION = readProperties()
     }
 
     stages {
@@ -21,19 +21,29 @@ pipeline {
 
         stage ('Packaging/Pushing image') {
             steps {
+
+                scripts{
+                    readProp = readProperties file: 'build.properties'
+                }
+
                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-                    sh "docker build -t hoainam1606/we-be:${APP_VERSION} ."
-                    sh "docker push hoainam1606/we-be:${APP_VERSION}"
+                    sh "docker build -t hoainam1606/we-be:${readProp['version']} ."
+                    sh "docker push hoainam1606/we-be:${readProp['version']}"
                 }
             }
         }
 
         stage ('Recreating application') {
             steps {
+
+                scripts{
+                    readProp = readProperties file: 'build.properties'
+                }
+
                 echo 'Deploying and cleaning'
                 sh 'docker rm -f wego-application || echo "this container does not exist" '
                 sh 'docker image rm -f hoainam1606/we-be || echo "this image does not exist" '
-                sh 'docker run -d --name wego-application -p 8085:8080 hoainam1606/we-be:${APP_VERSION}'
+                sh "docker run -d --name wego-application -p 8085:8080 hoainam1606/we-be:${readProp['version']}"
             }
         }
     }
