@@ -29,7 +29,7 @@ pipeline {
                 echo 'Deploying and cleaning'
                 sh 'docker rm -f wego-application || echo "this container does not exist" '
                 sh 'docker image rm -f hoainam1606/we-be || echo "this image does not exist" '
-                sh 'docker run hoainam1606/we-be -d --name wego-application -p 8081:8080'
+                sh 'docker run -d --name wego-application -p 8085:8080 hoainam1606/we-be'
             }
         }
     }
