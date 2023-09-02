@@ -23,7 +23,7 @@ pipeline {
             steps {
 
                 script {
-                    readProp = readProperties file: 'build.properties'
+                    readProp = readProperties('build.properties')
                 }
 
                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
@@ -37,7 +37,7 @@ pipeline {
             steps {
 
                 script {
-                    readProp = readProperties file: 'build.properties'
+                    readProp = readProperties('build.properties')
                 }
 
                 echo 'Deploying and cleaning'
