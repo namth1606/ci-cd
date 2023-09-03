@@ -5,10 +5,6 @@ pipeline {
         maven 'my-maven'
     }
 
-    environment {
-          APP_VERSION = readProperties()
-    }
-
     stages {
 
         stage ('Build with Maven') {
