@@ -17,11 +17,6 @@ pipeline {
 
         stage ('Packaging/Pushing image') {
             steps {
-                script {
-                    def pom = readMavenPom(file: 'pom.xml')
-                    def version = pom.version
-                    echo "Version is: ${version}"
-                }
                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
                     sh "docker build -t hoainam1606/we-be ."
                     sh "docker push hoainam1606/we-be"
