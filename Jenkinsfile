@@ -21,9 +21,8 @@ pipeline {
 
         stage ('Packaging/Pushing image') {
             steps {
-
-                readPom = readMavenPom file: '';
-                def version = readProp.version;
+                pom = readMavenPom(file: 'pom.xml')
+                def version = pom.version
 
                 withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
                     sh "docker build -t hoainam1606/we-be:${version} ."
@@ -35,8 +34,8 @@ pipeline {
         stage ('Recreating application') {
             steps {
 
-                readPom = readMavenPom file: '';
-                def version = readProp.version;
+                pom = readMavenPom(file: 'pom.xml')
+                def version = pom.version
 
                 echo 'Deploying and cleaning'
                 sh 'docker rm -f wego-application || echo "this container does not exist" '
