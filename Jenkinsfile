@@ -32,7 +32,6 @@ pipeline {
                 }
             }
         }
-
         stage ('Recreating application') {
             steps {
                 echo 'Deploying and cleaning'
