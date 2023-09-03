@@ -20,10 +20,11 @@ pipeline {
                 script {
                     def timestamp = new Date().format("yyyyMMddHHmmss")
                     def version = "1.0.${timestamp}"
-                }
-                withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
-                    sh "docker build -t hoainam1606/we-be:${version} ."
-                    sh "docker push hoainam1606/we-be:${version}"
+
+                    withDockerRegistry(credentialsId: 'dockerhub', url: 'https://index.docker.io/v1/') {
+                        sh "docker build -t hoainam1606/we-be:${version} ."
+                        sh "docker push hoainam1606/we-be:${version}"
+                    }
                 }
             }
         }
